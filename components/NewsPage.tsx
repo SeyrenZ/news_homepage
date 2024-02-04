@@ -44,9 +44,8 @@ const NewsPage = () => {
     },
   ];
   return (
-    <div className="w-auto max-w-[1440px] sm:w-full h-auto px-32 py-20 sm:px-5 sm:py-7 rounded-xl shadow-xl bg-white flex flex-col gap-y-14 sm:gap-y-8">
+    <div className="w-auto max-w-[1440px] sm:w-full h-auto px-32 py-20 sm:px-5 sm:py-7 rounded-xl shadow-xl bg-white flex flex-col gap-y-14 sm:gap-y-8 relative overflow-hidden">
       {/* Navbar */}
-
       <nav className="flex justify-between items-center ">
         <Logo className="" />
 
@@ -72,7 +71,7 @@ const NewsPage = () => {
       <div className="">
         {isClicked ? (
           <div className="p-10 flex flex-col absolute w-[100%] h-[100vh] transition duration-150 ease-in-out bg-white translate-x-[30%] z-10 ">
-            <div className="flex flex-col gap-y-7 mt-20">
+            <div className="flex flex-col gap-y-7 mt-20  ">
               {providers.map((provider, index) => (
                 <Link
                   key={index}
