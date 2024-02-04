@@ -7,90 +7,104 @@ import Image from "next/image";
 const NewsPage = () => {
   const [isClicked, setIsClicked] = useState(false);
 
+  const handleOnClick = () => {
+    setIsClicked(!isClicked);
+    if (!isClicked) {
+      document.getElementById("content")?.classList.add("blur-sm");
+    } else {
+      document.getElementById("content")?.classList.remove("blur-sm");
+    }
+  };
+
+  type Provider = {
+    name: string;
+    link: string;
+  };
+
+  const providers: Provider[] = [
+    {
+      name: "Home",
+      link: "/",
+    },
+    {
+      name: "New",
+      link: "/",
+    },
+    {
+      name: "Popular",
+      link: "/",
+    },
+    {
+      name: "Trending",
+      link: "/",
+    },
+    {
+      name: "Categories",
+      link: "/",
+    },
+  ];
   return (
     <div className="w-auto max-w-[1440px] sm:w-full h-auto px-32 py-20 sm:px-5 sm:py-7 rounded-xl shadow-xl bg-white flex flex-col gap-y-14 sm:gap-y-8">
       {/* Navbar */}
 
       <nav className="flex justify-between items-center ">
-        <Logo />
+        <Logo className="" />
 
-        <button onClick={() => setIsClicked(!isClicked)}>
+        <div onClick={handleOnClick}>
           {isClicked ? (
-            <div className="absolute w-[300px] h-[900px] left-[130px] top-8 bg-white justify-end lg:hidden md:hidden">
-              <MenuIconClose className=" ml-[243px]" />
-              <div className="p-10 mt-[50%] flex flex-col items-start gap-y-7">
-                <Link
-                  href="/"
-                  className="text-xl font-medium text-[#00001a] hover:text-[#f15e50]"
-                >
-                  Home
-                </Link>
-                <Link
-                  href="/"
-                  className="text-xl font-medium text-[#00001a] hover:text-[#f15e50]"
-                >
-                  New
-                </Link>
-                <Link
-                  href="/"
-                  className="text-xl font-medium text-[#00001a] hover:text-[#f15e50]"
-                >
-                  Popular
-                </Link>
-                <Link
-                  href="/"
-                  className="text-xl font-medium text-[#00001a] hover:text-[#f15e50]"
-                >
-                  Trending
-                </Link>
-                <Link
-                  href="/"
-                  className="text-xl font-medium text-[#00001a] hover:text-[#f15e50]"
-                >
-                  Categories
-                </Link>
-              </div>
-            </div>
+            <MenuIconClose className="lg:hidden md:hidden" />
           ) : (
             <MenuIcon className="lg:hidden md:hidden" />
           )}
-        </button>
-
+        </div>
         <div className="flex gap-x-10 sm:hidden">
-          <Link
-            href="/"
-            className="text-md font-medium text-[#5d5f79] hover:text-[#f15e50]"
-          >
-            Home
-          </Link>
-          <Link
-            href="/"
-            className="text-md font-medium text-[#5d5f79] hover:text-[#f15e50]"
-          >
-            New
-          </Link>
-          <Link
-            href="/"
-            className="text-md font-medium text-[#5d5f79] hover:text-[#f15e50]"
-          >
-            Popular
-          </Link>
-          <Link
-            href="/"
-            className="text-md font-medium text-[#5d5f79] hover:text-[#f15e50]"
-          >
-            Trending
-          </Link>
-          <Link
-            href="/"
-            className="text-md font-medium text-[#5d5f79] hover:text-[#f15e50]"
-          >
-            Categories
-          </Link>
+          {providers.map((provider, index) => (
+            <Link
+              key={index}
+              href={provider.link}
+              className="text-md font-medium text-[#5d5f79] hover:text-[#f15e50]"
+            >
+              {provider.name}
+            </Link>
+          ))}
         </div>
       </nav>
+      <div className="">
+        {isClicked ? (
+          <div className="p-10 flex flex-col absolute w-[100%] h-[100vh] transition duration-150 ease-in-out bg-white translate-x-[30%] z-10 ">
+            <div className="flex flex-col gap-y-7 mt-20">
+              {providers.map((provider, index) => (
+                <Link
+                  key={index}
+                  href="/"
+                  className="text-xl font-medium text-[#00001a] hover:text-[#f15e50]"
+                >
+                  {provider.name}
+                </Link>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className="p-10 flex flex-col absolute w-[100%] h-[100vh] transition duration-150 ease-in-out bg-white translate-x-[100%] z-10">
+            <div className="flex flex-col gap-y-7 mt-20">
+              {providers.map((provider, index) => (
+                <Link
+                  key={index}
+                  href="/"
+                  className="text-xl font-medium text-[#00001a] hover:text-[#f15e50]"
+                >
+                  {provider.name}
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
       {/* Content */}
-      <div className=" grid grid-cols-3 sm:grid-cols-1 gap-x-8 sm:gap-y-5">
+      <div
+        id="content"
+        className=" grid grid-cols-3 sm:grid-cols-1 gap-x-8 sm:gap-y-5 z-0"
+      >
         <div className="lg:h-[300px] col-span-2 sm:col-span-1">
           <Image
             className="sm:w-full sm:h-[300px] sm:object-cover"
